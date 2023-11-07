@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 import {
-    Button,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -12,20 +12,20 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useMutation, useQuery } from "@apollo/client";
 
 const CarsList = () => {
-     const { data, loading, error } = useQuery(GET_CARS, {
-       pollInterval: 0,
-     });
-    const [deleteCar] = useMutation(DELETE_CAR);
-     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error : {error.message}</p>;
-    
-    const handleDeleteBtn = (id) => {
-        deleteCar({ variables:{id}})
-    }
+  const { data, loading, error } = useQuery(GET_CARS, {
+    pollInterval: 0,
+  });
+  const [deleteCar] = useMutation(DELETE_CAR);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
+
+  const handleDeleteBtn = (id) => {
+    deleteCar({ variables: { id } });
+  };
   return (
     <div className="wrapper">
       {data &&
-        data.getCars.map(({ brand, model, color, id }) => (
+        data.getCars.map(({ brand, model, color, id, horsePowers }) => (
           <Card className="card">
             <CardHeader>
               {brand}
@@ -56,14 +56,25 @@ const CarsList = () => {
                 Color
               </Typography>
               <Typography>{color}</Typography>
-              <Button variant="outlined" startIcon={<DeleteIcon />} onClick={()=> handleDeleteBtn(id)}>
-                Delete
-              </Button>
+              <Typography
+                sx={{ fontSize: 14 }}
+                color="text.secondary"
+                gutterBottom
+              >
+                Horse Powers
+              </Typography>
+              <Typography>{horsePowers}</Typography>
+              <Button
+                sx={{ position: "absolute", top: "16px", right: "16px", display: 'flex', justifyContent:'center' }}
+                variant="outlined"
+               
+                onClick={() => handleDeleteBtn(id)}
+              ><DeleteIcon/></Button>
             </CardContent>
           </Card>
         ))}
     </div>
   );
-}
+};
 
-export default CarsList
+export default CarsList;
