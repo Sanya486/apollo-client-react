@@ -1,0 +1,17 @@
+body{
+  background-color: #f5f5dc;
+}
+
+.wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.card{
+  width: calc((100% - 20px * 3)/ 4);
+  height: 300px;
+}
+
